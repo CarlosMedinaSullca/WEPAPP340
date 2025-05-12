@@ -129,7 +129,7 @@ img {
   gap: 1rem;
   margin: 1.5rem 0.5rem;
   /* border: solid 1px red; */
-  justify-items: space-between;
+  /* justify-items: space-between; */
 }
 
 .individual-up {
