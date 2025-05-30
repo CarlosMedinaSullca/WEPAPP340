@@ -3,6 +3,10 @@
 :root {
   --paragraph-font: "Roboto", sans-serif; 
   --heading-font: "Cantata One", serif;
+  --text-color1: #000;
+  --text-color2: aliceblue;
+  --primary-color: rgb(30, 165, 202);
+  --secondary-color: #2a2929;
 }
 
 
@@ -60,6 +64,11 @@ nav ul {
   list-style: none;
   padding: 1.2rem 1rem;
   background-color: #2a2929;
+  color: aliceblue;
+}
+
+nav ul li a {
+  text-decoration: none;
   color: aliceblue;
 }
 
@@ -159,6 +168,82 @@ footer {
   padding: 0.5rem 0.4rem;
 }
 
+#inv-display {
+  /* border: solid 1px orange; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  margin: 1rem 0;
+
+}
+
+#inv-display li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: solid 1px red; */
+  box-shadow: 0 5px 10px var(--secondary-color);
+  border-radius: 5px;
+  width: 250px;
+  height: 230px;
+  margin: 0.5rem;
+}
+.namePrice {
+  width: 90%;
+}
+.namePrice h2 {
+  display: flex;
+  
+
+}
+
+.namePrice a{
+  
+  width: 100%;
+  text-decoration: none;
+  font-family: var(--paragraph-font);
+  color: var(--text-color1);
+  text-align: center;
+
+}
+.namePrice span {
+  padding: 0 0.5rem;
+  background: var(--primary-color);
+  color: var(--text-color2);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+main h1 {
+  margin: 1rem 0.5rem;
+}
+
+.details-page {
+  /* border: 1px solid red; */
+  padding: 0.5rem 1rem;
+}
+.details {
+  padding: 1rem 0;
+}
+.details h2, h3, p {
+  font-family: var(--paragraph-font);
+  padding: 0.5rem 0.3rem;
+}
+
+.details h2, 
+.details :nth-child(4) {
+  background-color: var(--secondary-color);
+  color: var(--text-color2);
+}
+.details :nth-child(3) i {
+  font-weight: bold;
+}
+
 @media screen and (min-width: 1000px) {
   html {
     background-image: url(../images/site/small_check.jpg);
@@ -171,7 +256,7 @@ footer {
     border: solid 4px rgb(30, 165, 202);
   }
 
-  main {
+  .homepage {
     display: grid;
     grid-template: 50% 50% / 50% 50%;
     padding: 0 0.5rem;
@@ -223,5 +308,30 @@ footer {
     font-size: 1.5rem;
   }
 
+  #inv-display {
+    /* border: solid 1px orange; */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
+  }
+
+  #inv-display li {
+    
+    width: 280px;
+    height: 250px;
+  }
+
+  .details-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  }
+  .details {
+  padding: 2rem 2rem;
+  }
+  .details-page img {
+    padding: 2rem 1rem;
+  }
 
 }
+
