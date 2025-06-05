@@ -22,6 +22,10 @@ invCont.buildByClassificationId = async function(req, res, next) {
     })
 }
 
+/* **********************
+ * Build inventory by details view
+ * ******************** */
+
 invCont.buildByItemId = async function(req, res, next) {
     const inventory_Id = req.params.inventoryId
     console.log(`this is the item Id ${inventory_Id}`)
@@ -41,6 +45,58 @@ invCont.buildByItemId = async function(req, res, next) {
     })
 
 }
+
+/* **********************
+ * Management  view
+ * ******************** */
+
+invCont.buildManagementView = async function(req, res, next) {
+    let nav = await utilities.getNav()
+    const intError = "<a href= /error >Error link</a>"
+    const newClass = "<a id= vmanage href= /inv/add-classification >Add new Classification</a>"
+    const newVehi = "<a id= vmanage href= /inv/add-inventory >Add new Vehicle</a>"
+    res.render("./inventory/management", {
+        title: "Vehicle management",
+        nav,
+        newClass,
+        newVehi,
+        intError,
+        errors: null,
+    })
+}
+
+/* **********************
+ * Add classification view
+ * ******************** */
+
+invCont.buildAddClassView = async function(req, res, next) {
+    let nav = await utilities.getNav()
+    const intError = "<a href= /error >Error link</a>"
+    res.render("./inventory/add-classification", {
+        title: "Add new classification",
+        nav,
+        intError,
+        errors: null,
+    })
+}
+
+/* **********************
+ * Add vehicle view
+ * ******************** */
+invCont.buildAddInvView = async function(req, res, next) {
+    let optionsList = await utilities.dropDownClassList()    
+    let nav = await utilities.getNav()    
+    const intError = "<a href= /error >Error link</a>"
+    res.render("./inventory/add-inventory", {
+        title: "Add new vehicle",
+        nav,
+        optionsList,
+        intError,
+        errors: null,
+    })
+}
+
+
 
 module.exports = invCont
 

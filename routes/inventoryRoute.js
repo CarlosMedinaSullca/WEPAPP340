@@ -8,6 +8,16 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 // Route to build inventory by item id view
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByItemId));
 
+// Route to management view
+router.get("/management", utilities.handleErrors(invController.buildManagementView));
+
+// Route to add classification view
+
+router.get("/add-classification", utilities.handleErrors(invController.buildAddClassView));
+
+// Route to add inventory view
+
+router.get("/add-inventory", utilities.handleErrors(invController.buildAddInvView));
 
 module.exports = router;
 

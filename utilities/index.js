@@ -27,6 +27,8 @@ Util.getNav = async function (req, res, next) {
     return list
 }
 
+
+
 /* **************************
  * Build the classification view HTML
  ***************************** */
@@ -111,6 +113,21 @@ Util.checkJWTToken = (req, res, next) => {
  }
 }
 
+/* **************************
+ * Constructs the dropdown classification list
+ ***************************** */
+
+Util.dropDownClassList = async function(req, res, next) {
+    let data = await invModel.getClassifications()
+    let optionsList = "<option value = > Please select </option>"
+    data.rows.forEach((row)=> {
+        optionsList += "<option"
+        optionsList +=
+        ' value= "' + row.classification_name +
+        '">' + row.classification_name+ "</option>"
+    })
+    return optionsList
+}
 
 module.exports = Util
 
