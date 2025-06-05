@@ -4,9 +4,12 @@ const baseController = {}
 baseController.buildHome = async function(req, res) {
     const nav = await utilities.getNav()
     const intError = "<a href= /error >Error link</a>"
+    req.flash("notice", "This is a flash message.")
     res.render("index", {title: "Home", nav, intError})
+    
 } //Line 6 - is the Express command to use EJS to send the index view back to the client, using the response object. The index view will need the "title" name - value pair, and the nav variable. The nav variable will contain the string of HTML code to render this dynamically generated navigation bar.
 
+// Intentional error
 baseController.buildError = async function(req, res, next) {
     const nav = await utilities.getNav()
     const intError = "<a href= /error >Error link</a>"
@@ -14,7 +17,7 @@ baseController.buildError = async function(req, res, next) {
         title: "Sever Error",
         message: "Oh no! There was a crash. Maybe try a different route?",
         nav,
-        intError
+        intError,
     })
 }
 

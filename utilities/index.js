@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 /* **************************
  * Constructs the nav HTML unordered list
@@ -69,12 +71,12 @@ Util.buildInventoryGrid = async function(data) {
             </div>
             <div class= "details">
                 <h2>${data[0].inv_make}${data[0].inv_model} Details</h2>
-                <h3>Price: $${data[0].inv_price}</h3>
+                <h3>Price: $${new Intl.NumberFormat().format(data[0].inv_price)}</h3>
                 <p><i>Description</i>: ${data[0].inv_description}</p>
                 <p>Color: ${data[0].inv_color}</p>
                 <p>Miles: ${new Intl.NumberFormat().format(data[0].inv_miles)}</p>
             </div>
-        </section`
+        </section>`
     } else {
         grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
@@ -87,6 +89,28 @@ Util.buildInventoryGrid = async function(data) {
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req,res,next)).catch(next)
+
+
+Util.checkJWTToken = (req, res, next) => {
+ if (req.cookies.jwt) {
+  jwt.verify(
+   req.cookies.jwt,
+   process.env.ACCESS_TOKEN_SECRET,
+   function (err, accountData) {
+    if (err) {
+     req.flash("Please log in")
+     res.clearCookie("jwt")
+     return res.redirect("/account/login")
+    }
+    res.locals.accountData = accountData
+    res.locals.loggedin = 1
+    next()
+   })
+ } else {
+  next()
+ }
+}
+
 
 module.exports = Util
 
