@@ -117,15 +117,21 @@ Util.checkJWTToken = (req, res, next) => {
  * Constructs the dropdown classification list
  ***************************** */
 
-Util.dropDownClassList = async function(req, res, next) {
+Util.dropDownClassList = async function(classification_id = null) {
     let data = await invModel.getClassifications()
-    let optionsList = "<option value = > Please select </option>"
+    let optionsList = '<select name="classification_id" id="classificationList" required>' 
+    optionsList += "<option value = '' > Please select </option>"
     data.rows.forEach((row)=> {
-        optionsList += "<option"
         optionsList +=
-        ' value= "' + row.classification_name +
-        '">' + row.classification_name+ "</option>"
+        '<option value= "' + row.classification_id + '"'
+        if (
+            classification_id != null && row.classification_id == classification_id
+        ) {
+            optionsList += "selected"
+        }
+        optionsList += ">" + row.classification_name+ "</option>"
     })
+    optionsList += "</select>"
     return optionsList
 }
 

@@ -298,6 +298,14 @@ main h1 {
     padding: 0 1rem;
   }
 
+  input:required:invalid:hover, input:focus:invalid:hover {
+    background-color: rgb(233, 189, 189);
+  }
+
+  input:required:valid {
+    background-color: rgb(168, 218, 168);
+  }
+
 }
 
 .notice {
