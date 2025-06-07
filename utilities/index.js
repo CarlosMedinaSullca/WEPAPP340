@@ -119,7 +119,7 @@ Util.checkJWTToken = (req, res, next) => {
 
 Util.dropDownClassList = async function(classification_id = null) {
     let data = await invModel.getClassifications()
-    let optionsList = '<select name="classification_id" id="classificationList" required>' 
+    let optionsList = '<select name="classification_id" id="classification_id" required>' 
     optionsList += "<option value = '' > Please select </option>"
     data.rows.forEach((row)=> {
         optionsList +=
