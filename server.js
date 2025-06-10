@@ -50,10 +50,12 @@ app.use(function(req, res, next){
 // Process registration activity
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true})) //for passing application/x-www-form-urlencoded
+
+// For allowing the cookie parser to be implemented throughout the project
 app.use(cookieParser())
 
+// Applying the middleware to check the JWT to confirm that it matches the one created
 app.use(utilities.checkJWTToken)
-
 
 
 /* ***********************

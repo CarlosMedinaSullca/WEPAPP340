@@ -55,11 +55,13 @@ invCont.buildManagementView = async function(req, res, next) {
     const intError = "<a href= /error >Error link</a>"
     const newClass = "<a id= vmanage href= /inv/add-classification >Add new Classification</a>"
     const newVehi = "<a id= vmanage href= /inv/add-inventory >Add new Vehicle</a>"
-    res.render("./inventory/management", {
+    const classificationSelect = await utilities.dropDownClassList()
+    res.render("./inventory/", {
         title: "Vehicle management",
         nav,
         newClass,
         newVehi,
+        classificationSelect,
         intError,
         errors: null,
     })
@@ -112,7 +114,7 @@ invCont.addClassification= async function(req,res) {
             `The ${classification_name} classification was succesfully added.`
         )
         let nav = await utilities.getNav()
-        res.status(201).render("inventory/management",{
+        res.status(201).render("inventory/",{
             title: "Vehicle management",
             nav,
             newClass: "<a id= vmanage href= /inv/add-classification >Add new Classification</a>",
@@ -160,7 +162,7 @@ invCont.addInventory= async function(req,res) {
             `The ${inv_make} ${inv_model} was succesfully added.`
         )
         let nav = await utilities.getNav()
-        res.status(201).render("inventory/management",{
+        res.status(201).render("inventory/",{
             title: "Vehicle management",
             nav,
             newClass: "<a id= vmanage href= /inv/add-classification >Add new Classification</a>",
@@ -183,6 +185,19 @@ invCont.addInventory= async function(req,res) {
     }
 }
 
+/* **********************
+ * return Inventory by Classification As JSON   
+ * ******************** */
+
+invCont.getInventoryJSON = async (req, res, next) => {
+    const classification_id = parseInt(req.params.classification_id)
+    const invData = await invModel.getInventoryByClassificationId(classification_id)
+    if (invData[0].inv_id) {
+        return res.json(invData)
+    } else {
+        next(new Error("No data returned"))
+    }
+}
 
 module.exports = invCont
 

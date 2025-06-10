@@ -12,7 +12,7 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByItemId));
 
 // Route to management view
-router.get("/management", utilities.handleErrors(invController.buildManagementView));
+router.get("/", utilities.handleErrors(invController.buildManagementView));
 
 // Route to add classification view
 
@@ -29,11 +29,18 @@ router.post("/add-classification",
     addValidate.checkAddClassData,    
     utilities.handleErrors(invController.addClassification));
 
+// Process the add inventory
 router.post("/add-inventory",
     addValidate.addInvRules(),
     addValidate.checkAddInvData,   
     utilities.handleErrors(invController.addInventory)
 );
+
+// This route works with the URL in the inventory.js fil in js folder in public
+
+router.get("/getInventory/:classification_id",
+    utilities.handleErrors(invController.getInventoryJSON)
+)
 
 module.exports = router;
 

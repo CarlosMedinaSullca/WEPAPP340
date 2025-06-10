@@ -18,7 +18,15 @@ router.get("/login",  utilities.handleErrors(accountController.buildLogin))
 
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
-router.get("/management", utilities.handleErrors(accountController.buildAccountManagement)
+
+
+/***************************
+ * Deliver Account Management View
+ * Unit 5, JWT authorization activity
+ *****************************/
+router.get("/",
+    utilities.checkLogin, //To check if the client is authorized, if not the access for this view is forbidden.    
+    utilities.handleErrors(accountController.buildAccountManagement)
 
 )
 

@@ -151,6 +151,7 @@ validate.checkAddInvData = async (req, res, next) => {
         })
         return
     }
+    next()
 }
 
 module.exports = validate

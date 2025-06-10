@@ -18,7 +18,7 @@
 
 <form class="addInvForm" method="POST" action="/inv/add-inventory">
     <div><i>All required</i></div>
-    <label for="classification_id">Classification:<%- optionsList  %></label>
+    <label for="classificationList">Classification:<%- optionsList  %></label>
 
     <label for="inv_make">Make: <input type="text" name="inv_make" pattern="[a-zA-Z]{3,}" placeholder="Min of 3 character" id="inv_make" value="<%= locals.inv_make %>" required ></label>
 

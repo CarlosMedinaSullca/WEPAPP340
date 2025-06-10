@@ -41,7 +41,7 @@ async function buildRegister(req, res, next) {
 async function buildAccountManagement(req, res, next) {
     let nav = await utilities.getNav()
     const intError = "<a href= /error >Error link</a>"
-    res.render("account/management", {
+    res.render("account/", {
         title: "You are logged in",
         nav,
         intError,
@@ -153,6 +153,6 @@ async function accountLogin(req, res) {
 
 
 
-module.exports = {buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement}
+module.exports = {buildLogin, buildRegister, registerAccount, buildAccountManagement, accountLogin}
 
 
