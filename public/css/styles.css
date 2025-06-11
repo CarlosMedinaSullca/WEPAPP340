@@ -247,7 +247,8 @@ main h1 {
 .loginForm,
 .registerForm,
 .addClassForm,
-.addInvForm {
+.addInvForm,
+.editInvForm {
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
@@ -315,7 +316,8 @@ main h1 {
 
 }
 
-#vmanage {
+#vmanage,
+#vmanagec {
   padding: 0 2rem;
 }
 @media screen and (min-width: 1000px) {

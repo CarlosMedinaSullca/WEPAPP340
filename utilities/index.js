@@ -107,7 +107,7 @@ Util.dropDownClassList = async function(classification_id = null) {
         if (
             classification_id != null && row.classification_id == classification_id
         ) {
-            optionsList += "selected"
+            optionsList += " selected"
         }
         optionsList += ">" + row.classification_name+ "</option>"
     })
