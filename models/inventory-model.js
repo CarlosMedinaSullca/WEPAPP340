@@ -70,7 +70,7 @@ async function addInventory(classification_id, inv_make, inv_model, inv_descript
 
 
 /* **************
-* Add new vehicle
+* Update the inventory
 * ************** */
 
 async function updateInventory(inv_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color, classification_id) {
@@ -84,8 +84,21 @@ async function updateInventory(inv_id, inv_make, inv_model, inv_description, inv
     }
 }
 
+/* **************
+* Delete confirmation
+* ************** */
+
+async function deleteConfirmation(inv_id) {
+    try {
+        const sql = "DELETE FROM inventory WHERE inv_id = $1"        
+        const data =  await pool.query(sql, [inv_id])
+        return data
+    } catch (error) {
+        console.error("Delet Inventory Error")
+    }
+}
 
 
-module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByInventoryId, addClassification, addInventory, updateInventory};
+module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByInventoryId, addClassification, addInventory, updateInventory, deleteConfirmation};
 
 

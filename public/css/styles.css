@@ -248,7 +248,8 @@ main h1 {
 .registerForm,
 .addClassForm,
 .addInvForm,
-.editInvForm {
+.editInvForm,
+.deleteForm {
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
