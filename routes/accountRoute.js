@@ -22,7 +22,7 @@ router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 /***************************
  * Deliver Account Management View
- * Unit 5, JWT authorization activity
+ * JWT authorization activity
  *****************************/
 router.get("/",
     utilities.checkLogin, //To check if the client is authorized, if not the access for this view is forbidden.    
@@ -30,6 +30,8 @@ router.get("/",
 
 )
 
+// Route to logout
+router.get("/logout", utilities.handleErrors(accountController.accountLogout))
 
 /***************************
  * Process registration
@@ -45,6 +47,23 @@ router.post( "/login",
     regValidate.loginRules(),
     regValidate.checkLogData, 
     utilities.handleErrors(accountController.accountLogin)
+)
+
+// Route to update account view
+router.get("/update",
+    utilities.handleErrors(accountController.buildUpdateAccount))
+
+// Process the update account
+
+router.post("/update", 
+    regValidate.updateAccountRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.updateAccount)
+)
+
+router.post("/change",
+    regValidate.changePasswordRules(),
+    utilities.handleErrors(accountController.changePassword)
 )
 
 module.exports = router;

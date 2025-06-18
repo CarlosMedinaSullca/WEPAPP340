@@ -249,12 +249,15 @@ main h1 {
 .addClassForm,
 .addInvForm,
 .editInvForm,
-.deleteForm {
+.deleteForm,
+.accountUpdateForm,
+.changePasswordForm {
   /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1.5rem 0.5rem;
+  margin: 1rem auto;
   width: 300px;
   align-self: center;
   border-radius: 10px;

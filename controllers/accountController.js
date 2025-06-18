@@ -16,7 +16,7 @@ async function buildLogin(req, res, next) {
         title: "Login",
         nav,
         intError,
-        errors: null,
+        errors: null
     })
 }
 
@@ -27,6 +27,7 @@ async function buildLogin(req, res, next) {
 async function buildRegister(req, res, next) {
     let nav = await utilities.getNav()
     const intError = "<a href= /error >Error link</a>"
+    "<a href= /error >Error link</a>"
     res.render("account/register", {
         title: "Register",
         nav,
@@ -45,7 +46,7 @@ async function buildAccountManagement(req, res, next) {
         title: "You are logged in",
         nav,
         intError,
-        errors: null,
+        errors: null
     })
 }
 
@@ -151,8 +152,86 @@ async function accountLogin(req, res) {
   }
 }
 
+/* ****************************************
+*  Logout account
+* *************************************** */
+
+async function accountLogout(req, res) {
+  res.clearCookie("jwt")
+  delete res.locals.accountData;
+  res.locals.loggedin = 0;
+  req.flash("notice", "Logout successful")
+  res.redirect("/")
+}
+
+/* ****************************************
+*  Update Account management view
+* *************************************** */
+
+async function buildUpdateAccount(req, res, next) {
+  // const { account_id } = req.body
+  // const account_id = parseInt(req.params.account_id)
+  const token = req.cookies.jwt
+  const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+  const account_id = decodedToken.account_id
+  console.log(`Account ID: ${account_id}`)  
+  let nav = await utilities.getNav()
+  const accountData = await accountModel.getAccountByAccountId(account_id)
+  const intError = "<a href= /error >Error link</a>"
+  res.render("account/update", {
+    title: "Edit Account",
+    nav,
+    account_id: accountData.account_id,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    account_email: accountData.account_email,
+    intError,
+    errors: null
+  })
+}
 
 
-module.exports = {buildLogin, buildRegister, registerAccount, buildAccountManagement, accountLogin}
+/* **************
+* Process Update account
+* ************** */
+async function updateAccount(req, res) {
+    let nav = await utilities.getNav()
+    const {
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    } = req.body
+
+    const regResult = await accountModel.updateAccount(
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+    )
+
+    if (regResult) {
+        req.flash(
+            "notice",
+            `Congratulations, your information has been updated.`
+        )
+        res.redirect("/account/")
+    } else {
+        req.flash("notice", "Sorry, the update failed.")
+        req.status(501).render("account/update", {
+            title: "Edit Account",
+            nav,
+            intError: "<a href= /error >Error link</a>",
+            errors: null,
+            account_id,
+            account_firstname,
+            account_lastname,
+            account_email
+        })
+    }
+}
+
+
+module.exports = {buildLogin, buildRegister, registerAccount, buildAccountManagement, accountLogin, accountLogout, buildUpdateAccount, updateAccount}
 
 

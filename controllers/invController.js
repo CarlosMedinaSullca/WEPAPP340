@@ -95,6 +95,7 @@ invCont.buildAddInvView = async function(req, res, next) {
         optionsList,
         intError,
         errors: null,
+        classificationSelect: optionsList
     })
 }
 
@@ -114,6 +115,7 @@ invCont.addClassification= async function(req,res) {
             `The ${classification_name} classification was succesfully added.`
         )
         let nav = await utilities.getNav()
+        const classificationSelect = await utilities.dropDownClassList()
         res.status(201).render("inventory/",{
             title: "Vehicle management",
             nav,
@@ -121,6 +123,8 @@ invCont.addClassification= async function(req,res) {
             newVehi: "<a id= vmanage href= /inv/add-inventory >Add new Vehicle</a>",
             intError: "<a href= /error >Error link</a>",
             errors: null,
+            classificationSelect
+
         })
     } else {
         req.flash("notice", "Sorry, the process to add classification failed.")
@@ -162,6 +166,7 @@ invCont.addInventory= async function(req,res) {
             `The ${inv_make} ${inv_model} was succesfully added.`
         )
         let nav = await utilities.getNav()
+        const classificationSelect = await utilities.dropDownClassList()
         res.status(201).render("inventory/",{
             title: "Vehicle management",
             nav,
@@ -169,6 +174,8 @@ invCont.addInventory= async function(req,res) {
             newVehi: "<a id= vmanage href= /inv/add-inventory >Add new Vehicle</a>",
             intError: "<a href= /error >Error link</a>",
             errors: null,
+            classificationSelect
+            
         })
     } else {
         req.flash("notice", "Sorry, the process to add vehicle failed.")

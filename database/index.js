@@ -1,4 +1,4 @@
-const {Pool} = require("pg") // imports the Pool funcionality from the "pg" package. 
+const { Pool } = require("pg") // imports the Pool funcionality from the "pg" package. 
 require("dotenv").config() //imports the "dotenv" package which allows the sensitive information about the database location and connection credentials to be stored in a separate location and still be accessed.
 /* ********
 *Connection Pool

@@ -142,13 +142,40 @@ Util.checkJWTToken = (req, res, next) => {
 }
 
 /* **************************
- * Middleware to check token validity
+ * Check Login
  ***************************** */
 Util.checkLogin = (req, res, next) => {
     if (res.locals.loggedin) {
         next()
     } else {
         req.flash("notice", "Please log in.")
+        return res.redirect("/account/login")
+    }
+}
+
+Util.checkAccountType = (req, res, next) => {
+    try {
+        //Get token from cookies
+        const token = req.cookies.jwt 
+        if (!token) {
+            req.flash("notice","You must be logged in to access this page.")
+            return res.redirect("/account/login")
+        }
+
+        //Verify token
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+
+        //Check account type
+
+        if (decoded.account_type === "Employee" || decoded.account_type === "Admin") {
+            req.user = decoded
+            return next()
+        } else {
+            req.flash("notice", "You do not have permission to access this page.")
+            return res.redirect("/account/login")
+        }
+    } catch (err) {
+        req.flash("notice", "Session expired or invalid. Please log in again.")
         return res.redirect("/account/login")
     }
 }

@@ -12,7 +12,10 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByItemId));
 
 // Route to management view
-router.get("/", utilities.handleErrors(invController.buildManagementView));
+router.get("/",
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildManagementView)
+);
 
 // Route to add classification view
 
