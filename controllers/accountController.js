@@ -232,6 +232,58 @@ async function updateAccount(req, res) {
 }
 
 
-module.exports = {buildLogin, buildRegister, registerAccount, buildAccountManagement, accountLogin, accountLogout, buildUpdateAccount, updateAccount}
+/* **************
+* Process change password
+* ************** */
+async function changePassword(req, res) {
+    let nav = await utilities.getNav()
+    const {
+      account_id,
+      account_password,
+    } = req.body
+
+    // Hash the password before storing
+    // Hash the password before storing
+    let hashedPassword
+    try {
+        // regular password and cost (salt is generated automatically)
+        hashedPassword = await bcrypt.hashSync(account_password, 10)
+    } catch (error) {
+        req.flash("notice", 'Sorry, there was an error processing the change.')
+        res.status(500).render("account/update", {
+            title: "Edit account",
+            nav,
+            errors: null,
+            intError: "<a href= /error >Error link</a>"
+        })
+    }
+
+
+    const regResult = await accountModel.changePassword(
+      account_id,
+      hashedPassword
+    )
+
+    if (regResult) {
+        req.flash(
+            "notice",
+            `Congratulations, succesfull password change`
+        )
+        res.redirect("/account/")
+    } else {
+        req.flash("notice", "Sorry, the password change failed.")
+        req.status(501).render("account/update", {
+            title: "Edit account",
+            nav,
+            intError: "<a href= /error >Error link</a>",
+            errors: null,
+            account_id
+        })
+    }
+}
+
+
+
+module.exports = {buildLogin, buildRegister, registerAccount, buildAccountManagement, accountLogin, accountLogout, buildUpdateAccount, updateAccount, changePassword}
 
 

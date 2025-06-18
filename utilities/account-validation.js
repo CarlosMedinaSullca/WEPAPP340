@@ -201,6 +201,27 @@ validate.checkUpdateData =async (req, res, next) => {
     next()
 }
 
+/* **************************
+ * Check data and return errors or continue to update account
+ ***************************** */
+
+validate.checkChangePassword =async (req, res, next) => {
+    const {account_id} = req.body
+    let errors = []    
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("account/update", {
+            errors,
+            title: "Edit Account",
+            nav,
+            account_id,
+            intError: "<a href= /error >Error link</a>",
+        })
+        return
+    }
+    next()
+}
 
 
 module.exports = validate

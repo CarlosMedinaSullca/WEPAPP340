@@ -63,6 +63,7 @@ router.post("/update",
 
 router.post("/change",
     regValidate.changePasswordRules(),
+    regValidate.checkChangePassword,
     utilities.handleErrors(accountController.changePassword)
 )
 
