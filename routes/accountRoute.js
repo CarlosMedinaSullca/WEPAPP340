@@ -51,6 +51,7 @@ router.post( "/login",
 
 // Route to update account view
 router.get("/update",
+    utilities.checkLogin,
     utilities.handleErrors(accountController.buildUpdateAccount))
 
 // Process the update account
