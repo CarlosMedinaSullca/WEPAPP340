@@ -63,6 +63,10 @@ Util.buildClassificationGrid = async function(data) {
     return grid
 }
 
+/* **************************
+ * Build the details view HTML
+ ***************************** */
+
 Util.buildInventoryGrid = async function(data) {
     let grid
     if(data.length > 0) {
@@ -77,6 +81,7 @@ Util.buildInventoryGrid = async function(data) {
                 <p><i>Description</i>: ${data[0].inv_description}</p>
                 <p>Color: ${data[0].inv_color}</p>
                 <p>Miles: ${new Intl.NumberFormat().format(data[0].inv_miles)}</p>
+                <a id= "purchase" title= "Purchase" href= "../purchase/${data[0].inv_id}">Purchase</a>
             </div>
         </section>`
     } else {
@@ -179,6 +184,33 @@ Util.checkAccountType = (req, res, next) => {
         return res.redirect("/account/login")
     }
 }
+
+/* **************************
+ * Build the purchase view HTML
+ ***************************** */
+
+Util.buildPurchaseGrid = async function(data) {
+    let grid
+    if(data.length > 0) {
+        grid = `
+        <section class= "details-page">
+            <div class= "full-vehi-image">
+                <img src= "${data[0].inv_image}" alt= "Image of ${data[0].inv_make} ${data[0].inv_model} on CSE Motors" />                
+            </div>
+            <div class= "details">
+                <h2>${data[0].inv_make}${data[0].inv_model} Costs</h2>
+                <h3>Price: $${new Intl.NumberFormat().format(data[0].inv_price)}</h3>
+                <h3>Shipping cost (in USA): $${new Intl.NumberFormat().format(data[0].inv_price * 0.03)}</h3>
+                <h3>Total: $${new Intl.NumberFormat().format(data[0].inv_price * 1.03)}</h3>
+            </div>
+        </section>`
+    } else {
+        grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    }
+    return grid
+}
+
+
 
 module.exports = Util
 

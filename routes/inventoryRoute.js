@@ -71,5 +71,9 @@ router.post("/delete/",
     utilities.handleErrors(invController.deleteConfirmation)
 )
 
+router.get("/purchase/:inv_id",
+    utilities.handleErrors(invController.buildPurchaseView)
+)
+
 module.exports = router;
 

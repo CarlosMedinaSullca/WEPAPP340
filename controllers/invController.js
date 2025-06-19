@@ -352,5 +352,30 @@ invCont.deleteConfirmation = async function(req,res, next) {
 }
 
 
+/* **********************
+ * Build purchase view
+ * ******************** */
+
+invCont.buildPurchaseView = async function(req, res, next) {
+    const inv_id = req.params.inv_id
+    console.log(`this is the item Id ${inv_id}`)
+    const data = await invModel.getDetailsByInventoryId(inv_id)
+    console.log(data)
+    const grid = await utilities.buildPurchaseGrid(data)
+    let nav = await utilities.getNav()
+    const year = data[0].inv_year
+    const make = data[0].inv_make
+    const model = data[0].inv_model
+    const intError = "<a href= /error >Error link</a>"
+    res.render("inventory/purchase", {
+        title: `${year }${make }${model}`,
+        nav,
+        grid,
+        intError,
+    })
+
+}
+
+
 module.exports = invCont
 
