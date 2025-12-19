@@ -21,8 +21,7 @@ account_password: I@mAnAdm!n1strat0r
 
 <img width="1081" height="832" alt="login page" src="https://github.com/user-attachments/assets/18a1f932-88e1-4f34-b904-c9c055dd47e1" />
 <img width="1117" height="856" alt="Add new category" src="https://github.com/user-attachments/assets/9924002f-0ddf-407e-a8f8-1a9c05c70cad" />
-<img width="1086" height="828" alt="car details page" src="https://github.com/user-attachments/assets/4096fa7f-3740-4241-8018-8126a8168748" />
-<img width="1086" height="828" alt="car details page" src="https://github.com/user-attachments/assets/b5c4cf57-42dd-4596-8953-8abe56171eb0" />
+
 
 
 
