@@ -269,11 +269,13 @@ main h1 {
     padding-top: 0.2rem;
     font-family: var(--paragraph-font);
   }
+ 
   input[type="email"],
   input[type="password"],
   input[type="text"],
   input[type="number"],
   textarea,
+  #classificationList,
   select {
     display: block;
     margin: 0.3rem 0;
